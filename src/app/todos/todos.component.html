@@ -1,0 +1,29 @@
+<div class="main_container">
+
+
+  <div class="logo_container" [@fade_logo]="state">
+    <div>  
+      <img class="logo_png" src="../../assets/logo.png">
+    </div>
+  </div>
+
+  <div class="todoz_container" [@fade_input]="state">
+    <div class="input_holder">
+
+      <input class="input password" type="text" unselectable [formControl]="todo" placeholder="To Do">
+      <div class="line pass_line"></div>
+    </div>
+  </div>
+
+  <div class="single_todo">
+    <div class="todos_list">
+      <div style="height:100px;width: 100px;margin-top: 46vh;" ></div>
+
+      <div *ngFor="let todo of todos let i = index">
+        <app-todo [todo]="todo" [index]="i"></app-todo>
+      </div>
+
+    </div>
+  </div>
+
+</div>

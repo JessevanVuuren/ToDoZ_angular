@@ -1,0 +1,68 @@
+.main_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100vh;
+}
+
+.logo_container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  // margin-top: 40%;
+
+  .logo_png {
+    height: 70px;
+  }
+}
+
+.todoz_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .input_holder {
+    width: 80%;
+  }
+
+  .input {
+    background-color: var(--background_color);
+    border: 0px;
+    caret-color: var(--yellow);
+    color: white;
+    font-size: 50px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .input:focus {
+    outline: none;
+  }
+  .line {
+    height: 1px;
+    width: 100%;
+    background-color: var(--purple);
+  }
+}
+
+.todos_list {
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  -ms-overflow-style: none;
+  scrollbar-width: none;  
+  flex-direction: column;
+  width: 80%;
+  align-items: flex-start;
+}
+.todos_list::-webkit-scrollbar { 
+  display: none;
+}
+
+.single_todo {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,72 @@
+.main_container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_box {
+}
+
+.input_container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  background-color: var(--background_color);
+  border: 0px;
+  caret-color: var(--yellow);
+  color: white;
+  font-size: 40px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.user_line {
+  margin-bottom: 10px;
+
+}
+
+.pass_line {
+  margin-bottom: 20px;
+
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: var(--purple);
+}
+
+.button_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  font-size: 25px;
+}
+
+.register {
+  color: var(--yellow);
+  transition: all 10ms ease-in;
+}
+
+.register:hover {
+  cursor: pointer;
+  border-bottom: 1px solid var(--yellow);
+}
+
+.login {
+  color: var(--purple);
+}
+
+.login:hover {
+  cursor: pointer;
+  border-bottom: 1px solid var(--purple);
+}

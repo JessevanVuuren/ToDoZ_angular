@@ -1,0 +1,8 @@
+<div class="todo_container" [ngStyle]="{'animation-delay': index * 100 + 'ms'}">
+
+
+  <div class="todo_holder" [ngStyle]="{'border-color': priorityColor}">
+    <h1>{{ todo.attributes.name }}</h1>
+    <p>{{ todo.attributes.description }}</p>
+  </div>
+</div>
