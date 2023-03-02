@@ -1,8 +1,14 @@
 <div class="todo_container" [ngStyle]="{'animation-delay': index * 100 + 'ms'}">
 
+  <div class="hover_fix">
 
-  <div class="todo_holder" [ngStyle]="{'border-color': priorityColor}">
-    <h1>{{ todo.attributes.name }}</h1>
-    <p>{{ todo.attributes.description }}</p>
+    <div class="todo_holder" [ngStyle]="{'border-color': priorityColor}">
+      <h1>{{ todo.attributes.name }}</h1>
+      <p>{{ todo.attributes.description }}</p>
+    </div>
+  </div>
+
+  <div class="finished">
+    <a>✔</a>
   </div>
 </div>

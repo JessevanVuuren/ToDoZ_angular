@@ -17,4 +17,8 @@ export class TodosService {
     })
   }
 
+  sendToDo(todo:FormData) {
+    return this.http.sendData("/api/tasks", todo)
+  }
+
 }

@@ -9,7 +9,6 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   headers = new HttpHeaders()
-    .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*')
     // .set("Authorization", "Bearer " + localStorage.getItem("auth_key"));
     .set("Authorization", "Bearer 8|eXbAGzRAXpeEOX4aNb6MWQkEfaz1tQ0OQ1Gv8UCD");

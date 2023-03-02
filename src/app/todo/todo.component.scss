@@ -5,7 +5,18 @@
   animation-timing-function: cubic-bezier(.22,1.58,.77,1);
   animation-fill-mode: forwards;
   opacity: 0;
+  border-radius: 8px 0px 0px 8px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--dark_gray);
+  }
 }
+
 
 @keyframes optIn {
   0% {
@@ -17,13 +28,12 @@
 }
 
 .todo_holder {
-  padding-left: 10px;
-  margin-bottom: 20px;
   border-left: 2px;
   border-style: solid;
   border-right: none;
   border-top: none;
   border-bottom: none;
+  padding-left: 10px;
 
   h1 {
     color: white;
@@ -33,4 +43,30 @@
     margin: 0px;
     color: var(--gray);
   }
+}
+
+.finished {
+  display: none;
+  a {
+    color: var(--gray);
+    font-size: 30px;
+    margin-right: 30px;
+
+    &:hover {
+      color: var(--good);
+    }
+  }
+
+  &:hover {
+    display: block;
+  }
+}
+
+.hover_fix {
+  width: 100%;
+  padding: 10px;
+}
+
+.hover_fix:hover + .finished {
+  display: block;
 }

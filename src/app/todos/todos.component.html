@@ -2,24 +2,30 @@
 
 
   <div class="logo_container" [@fade_logo]="state">
-    <div>  
+    <div>
       <img class="logo_png" src="../../assets/logo.png">
     </div>
   </div>
 
   <div class="todoz_container" [@fade_input]="state">
     <div class="input_holder">
+      <div class="form">
 
-      <input class="input password" type="text" unselectable [formControl]="todo" placeholder="To Do">
-      <div class="line pass_line"></div>
+        <input class="input password" type="text" unselectable [formControl]="todo" placeholder="To Do">
+        <a (select)="false" (click)="addToDo()">↛</a>
+
+      </div>
+      <div class="line" [ngStyle]="{'background-color': redLine ? 'var(--bad)' : 'var(--yellow)'}">
+
+      </div>
     </div>
   </div>
 
   <div class="single_todo">
     <div class="todos_list">
-      <div style="height:100px;width: 100px;margin-top: 46vh;" ></div>
-
-      <div *ngFor="let todo of todos let i = index">
+      <div style="height:100px;width: 100%;margin-top: 46vh;"></div>
+      
+      <div *ngFor="let todo of todos let i = index" style="width: 100%;">
         <app-todo [todo]="todo" [index]="i"></app-todo>
       </div>
 
