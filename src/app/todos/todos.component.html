@@ -23,7 +23,7 @@
 
   <div class="single_todo">
     <div class="todos_list">
-      <div style="height:100px;width: 100%;margin-top: 46vh;"></div>
+      <div style="width: 100%;margin-top: 46vh;"></div>
       
       <div *ngFor="let todo of todos let i = index" style="width: 100%;">
         <app-todo [todo]="todo" [index]="i"></app-todo>
@@ -33,3 +33,4 @@
   </div>
 
 </div>
+

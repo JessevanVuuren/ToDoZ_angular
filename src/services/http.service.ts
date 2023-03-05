@@ -8,24 +8,36 @@ export class HttpService {
   public url = environment.apiURL
   constructor(private http: HttpClient) { }
 
-  headers = new HttpHeaders()
-    .set('Access-Control-Allow-Origin', '*')
-    // .set("Authorization", "Bearer " + localStorage.getItem("auth_key"));
-    .set("Authorization", "Bearer 8|eXbAGzRAXpeEOX4aNb6MWQkEfaz1tQ0OQ1Gv8UCD");
-    
+  getHeaders(): HttpHeaders {
+    return new HttpHeaders()
+      .set('Access-Control-Allow-Origin', '*')
+      .set("Authorization", "Bearer " + localStorage.getItem("todo_key"));
+  }
+
   public getData<T>(path: String): Observable<Array<T>> {
+    console.log(localStorage.getItem("todo_key"))
     return this.http
-      .get<T[]>(this.url + path, { 'headers': this.headers })
+      .get<T[]>(this.url + path, { 'headers': this.getHeaders() })
   }
 
   public getSingleData<T>(path: String): Observable<T> {
     return this.http
-      .get<T>(this.url + path, { 'headers': this.headers })
+      .get<T>(this.url + path, { 'headers': this.getHeaders() })
   }
 
   public sendData<T>(path: string, data: any): Observable<T> {
     return this.http.post<T>(this.url + path, data, {
-      'headers': this.headers
+      'headers': this.getHeaders()
+    })
+  }
+
+  sendFormData<T>(path: string, data: Array<{ key: any, value: string }>): Observable<T> {
+    const formData = new FormData()
+
+    data.map(key => formData.append(key.key, key.value))
+
+    return this.http.post<T>(this.url + path, formData, {
+      'headers': this.getHeaders()
     })
   }
 }
