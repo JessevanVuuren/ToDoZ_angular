@@ -12,42 +12,50 @@ export class AuthService {
 
   is_logged_in = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpService) {
-    const key = localStorage.getItem("todo_key") || undefined
-    if (key) {
-      this.http.getSingleData<Response>("/api/validate_token").subscribe(response => {
-        console.log(response)
-        if (response.message === "valid token") this.is_logged_in.next(true)
-      })
-    }
+  constructor(private http: HttpService) { }
+
+  get_key(): string | undefined {
+    return localStorage.getItem("todo_key") || undefined
   }
 
-  login(username: string, password: string): void {
-    const log = [{ "key": "email", "value": username }, { "key": "password", "value": password }]
-    this.http.sendFormData<AuthResponse>("/api/login", log).subscribe((response) => {
-      if (response.data) {
-        this.log_user_in(response.data.token)
-      }
+  validate_key(): Promise<boolean> {
+    return new Promise(resolve => {
+      if (!this.get_key()) resolve(false)
+      this.http.getSingleData<Response>("/api/validate_token").subscribe(response => {
+        if (response.message === "valid token") {
+          this.is_logged_in.next(true)
+          resolve(true)
+        }
+        resolve(false)
+      })
     })
   }
 
-  log_user_in(token:string) {
+  login(username: string | null, password: string | null): Observable<AuthResponse> {
+    if (!username) username = ""
+    if (!password) password = ""
+
+    const log = [{ "key": "email", "value": username }, { "key": "password", "value": password }]
+    return this.http.sendFormData<AuthResponse>("/api/login", log)
+  }
+
+  log_user_in(token: string) {
     this.saveKey(token)
-        this.is_logged_in.next(true)
+    this.is_logged_in.next(true)
   }
 
   register(name: string, email: string, password: string): Observable<AuthResponse> {
     const log = [
-      { "key": "name", "value": name }, 
-      { "key": "email", "value": email }, 
-      { "key": "password", "value": password }, 
+      { "key": "name", "value": name },
+      { "key": "email", "value": email },
+      { "key": "password", "value": password },
       { "key": "password_confirmation", "value": password }
     ]
     return this.http.sendFormData<AuthResponse>("/api/register", log)
   }
 
-  saveKey(token:string) {
-    
+  saveKey(token: string) {
+
     localStorage.setItem("todo_key", token)
   }
 }

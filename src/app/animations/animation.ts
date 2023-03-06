@@ -4,6 +4,9 @@ import { style, animate, trigger, transition, state } from '@angular/animations'
 export const init_animation = (speed_in: number, speed_out: number, delay: number, components: Array<string>) => {
   return components.map((component, index) => {
     return trigger(component, [
+      state("validate", style({
+        opacity: 0,
+      })),
       transition('* => init', [
         style({
           transform: "translateY(200px)",

@@ -1,7 +1,16 @@
 <div class="main_container">
   <div class="main_box">
-    
-    
+
+    <div *ngIf="state == 'validate'" class="spinner">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+    </div>
+
     <div *ngIf="!register_mode">
       <img class="logo" [@fade_logo]="state" src="assets/logo.png">
 
@@ -19,6 +28,9 @@
           <div class="line pass_line"></div>
         </div>
 
+        <p style="color:wheat;white-space: pre-line">{{ errors }}</p>
+
+
       </div>
 
       <div class="button_container" [@fade_buttons]="state" (@fade_buttons.done)="reRoute()">
@@ -34,8 +46,7 @@
       <div class="input_container">
 
         <div [@fade_user]="state">
-          <input class="input username" type="text" autocomplete="new-password" [formControl]="name"
-            placeholder="name">
+          <input class="input username" type="text" autocomplete="new-password" [formControl]="name" placeholder="name">
           <div class="line user_line"></div>
         </div>
 

@@ -23,19 +23,22 @@ export class LoginComponent implements OnInit {
 
   is_manual_mode = false
   register_mode = false
-  state = 'init';
+  state = 'validate';
 
   errors = ""
 
   constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.auth.is_logged_in.subscribe(value => {
-      if (value && !this.is_manual_mode) this.router.navigate(["/todoz"])
+
+    this.auth.validate_key().then((value) => {
+      if (value) this.router.navigate(["/todoz"])
+      else this.state = "init"
     })
   }
 
   witch_mode() {
+    this.errors = ""
     this.register_mode = !this.register_mode
   }
 
@@ -49,35 +52,40 @@ export class LoginComponent implements OnInit {
 
     if (name && email && password1 && password2) {
       if (name.value && email.value && password1.value && password2.value) {
-        if ( password1.value === password2.value){
+        if (password1.value === password2.value) {
           this.auth.register(name.value, email.value, password1.value).subscribe((response) => {
             if (response.data) {
+              this.errors = ""
               this.auth.log_user_in(response.data.token)
               this.state = "logged_in"
             }
-          }, (err:any) => {
-            const error:AuthResponse = err.error
-            this.errors = ""
-            if (error.errors.name) error.errors.name.map(e => this.errors += e + "\n")
-            if (error.errors.email) error.errors.email.map(e => this.errors += e + "\n")
-            if (error.errors.password) error.errors.password.map(e => this.errors += e + "\n")
-          })
+          }, err => this.set_error(err))
         }
-      } 
+      }
     }
   }
 
   login() {
     this.is_manual_mode = true
-    if (this.username.valid && this.password.valid) {
-      if (this.username.value && this.password.value) {
-        this.auth.login(this.username.value, this.password.value)
+    this.auth.login(this.username.value, this.password.value).subscribe(response => {
+      if (response.data) {
+        this.errors = ""
+        this.auth.log_user_in(response.data.token)
         this.state = "logged_in"
       }
+    }, err => {
+      if (err.status === 401) this.errors = "Credentials does not exist"
+      if (err.status === 422) this.set_error(err)
     }
+    )
   }
 
-  toggleState() {
+  set_error(response: any) {
+    const error: AuthResponse = response.error
+    this.errors = ""
+    if (error.errors.name) error.errors.name.map(e => this.errors += e + "\n")
+    if (error.errors.email) error.errors.email.map(e => this.errors += e + "\n")
+    if (error.errors.password) error.errors.password.map(e => this.errors += e + "\n")
   }
 
   reRoute() {
